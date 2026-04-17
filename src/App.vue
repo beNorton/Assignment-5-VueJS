@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import MealGallery from './components/MealGallery.vue'
 </script>
 
 <template>
-  <HelloWorld />
+  <MealGallery />
 </template>
