@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { MealData } from '../services/MealData.ts'
 
+const emit = defineEmits<{ healthRank: [id: string] }>()
+
 const props = defineProps<{
   meal: MealData
 }>()
@@ -17,6 +19,7 @@ const props = defineProps<{
       <h2 class="h5 card-title">{{ meal.mealname || 'No name found' }}</h2>
       <p class="card-text mb-2">{{ meal.description?.join(', ') || 'No description given.' }}</p>
       <small class="text-body-secondary">Created: {{ meal.createdAt }} </small>
+      <button v-on:click="emit('healthRank', meal._id)">Health Ranking</button>
     </div>
   </div>
 </template>
