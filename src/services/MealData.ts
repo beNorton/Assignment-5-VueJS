@@ -22,7 +22,7 @@ export const meals: MealData[] = [
     {
         "_id":"69bae55f1e306baebde45ec7",
         "mealname": "Wed Mar 18 2026: lunch",
-        "plateImageURL": "this is required?",
+        "plateImageURL": "https://www.goodlifeeats.com/wp-content/uploads/2025/11/the-best-hot-roast-beef-sandwiches-720x720.jpg",
         "description": [
             "second attempt"
         ],
@@ -32,7 +32,7 @@ export const meals: MealData[] = [
     {
         "_id": "69bd4aae139d6230b612103d",
         "mealname": "Fri Mar 20 2026: breakfast",
-        "plateImageURL": "",
+        "plateImageURL": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9B4ch0blVrmcRofyJSnYS9dqbZnHDCxrCxg&s",
         "description": ["bagel", "cream cheese", "coffee"],
         "createdAt": "2026-03-20T13:25:02.312Z",
         "updatedAt": "2026-03-20T13:25:02.312Z"
@@ -40,7 +40,7 @@ export const meals: MealData[] = [
     {
         "_id": "69d50a832fd1ace02f4ff642",
         "mealname": "Tue Apr 07 2026: breakfast",
-        "plateImageURL": "",
+        "plateImageURL": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsb3GK_Yw74n3-yeJNZsP474EeyQatEU5m2A&s",
         "description": [
             "coffee",
             "more coffee",
