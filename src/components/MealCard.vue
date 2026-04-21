@@ -15,7 +15,7 @@ const props = defineProps<{
     />
     <div class="card-body">
       <h2 class="h5 card-title">{{ meal.mealname || 'No name found' }}</h2>
-      <p class="card-text mb-2">{{ meal.description || 'No description given.' }}</p>
+      <p class="card-text mb-2">{{ meal.description?.join(', ') || 'No description given.' }}</p>
       <small class="text-body-secondary">Created: {{ meal.createdAt }} </small>
     </div>
   </div>
