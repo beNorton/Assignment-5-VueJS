@@ -10,3 +10,5 @@ The AI built the two components and included navigational links to go back to th
 I asked the AI to build out the form on the edit page and had to follow up with a request to redirect to the details page after sumbit.
 
 `On the @src/components/MealEdit.vue add form functionality to update the mealName, Description, and image url using v-model for two way input binding. @sumit.prevent to keep the control in Vue and use watch to keep the form state in syn when the id changes`
+
+I realized that I wasn't using methods in my mealData.ts service so I asked AI to refactor the Details page. 

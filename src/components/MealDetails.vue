@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { meals, type MealData } from '../services/MealData'
+import { getMeal, type MealData } from '../services/MealData'
 
   const route = useRoute()
 
@@ -14,7 +14,7 @@ import { meals, type MealData } from '../services/MealData'
         meal.value = undefined
         return
       }
-      meal.value = meals.find((m) => m._id === id)
+      meal.value = getMeal(id)
     },
     { immediate: true },
   )

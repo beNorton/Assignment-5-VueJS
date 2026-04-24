@@ -50,3 +50,7 @@ export const meals: MealData[] = [
         "updatedAt": "2026-04-07T13:45:56.984Z"
     }
 ]
+
+export function getMeal(id: string): MealData | undefined {
+  return meals.find((meal) => meal._id === id)
+}
