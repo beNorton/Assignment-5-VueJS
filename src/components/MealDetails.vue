@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { getMeal, type MealData } from '../services/MealData'
 
-  const route = useRoute()
+const route = useRoute()
+const router = useRouter()
 
-  const meal = ref<MealData | undefined>(undefined)
+const meal = ref<MealData | undefined>(undefined)
 
   watch(
     () => route.params.id,
@@ -15,6 +16,9 @@ import { getMeal, type MealData } from '../services/MealData'
         return
       }
       meal.value = getMeal(id)
+      if (!meal.value) {
+        router.replace('/')
+      }
     },
     { immediate: true },
   )

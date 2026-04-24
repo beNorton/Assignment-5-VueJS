@@ -24,7 +24,7 @@ This application has been built in Vue with dummy meal data, future versions wil
 
 ## Deplpyment Link
 
-[https://assignment-5-Vue.onrender.com/](https://assignment-4-Vue.onrender.com/)
+[https://assignment-5-vuejs.onrender.com/](https://assignment-5-vuejs.onrender.com/)
 
 ## CHAT PROMPT Reflections
 

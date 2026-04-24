@@ -57,7 +57,7 @@ function handleSubmit() {
     return
   }
 
-  router.push(`/meals/${updatedMeal._id}`)
+  router.replace(`/meals/${updatedMeal._id}`)
 }
 
 function handleDelete() {
@@ -77,7 +77,7 @@ function handleDelete() {
     return
   }
 
-  router.push('/')
+  router.replace({ path: '/', query: { deleted: '1' } })
 }
 </script>
 
