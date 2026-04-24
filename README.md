@@ -2,11 +2,27 @@
 
 ## Overview
 
-This application is used to track the food that you eat durning the day. The home page lists all of your
-entries that have been logged. Click the meal title to see the details page where you can click edit to edit
-or delete the meal.
+This application tracks the food you eat during the day. The home page lists all logged meal entries.
+Click the meal title or image to open the details page, where you can view more information and go to edit.
 
-This application has been built in Vue with dummy meal data, future versions will use real data that can be saved.
+This application is built in Vue with local dummy meal data. Future versions will use real data from a REST service.
+
+### Donut Health Ranking
+
+Each meal can be ranked from 1 to 5 using donut icons (instead of stars):
+
+- On the gallery page, each meal card includes a clickable donut ranking control.
+- On the details page, the same ranking control is available and stays in sync with gallery updates.
+- Rankings are applied immediately when clicked.
+
+### Supported Operations
+
+This version of the app currently supports **RUD** operations (not Create):
+
+- **Read**: View meals in gallery and details pages.
+- **Update**: Edit meal name, description, image URL, and health rank.
+- **Delete**: Delete a meal from the edit page with a confirmation prompt.
+- **Not included**: Create/new meal flow is not implemented yet.
 
 ## Getting started
 
@@ -19,10 +35,10 @@ This application has been built in Vue with dummy meal data, future versions wil
 2. Start the server:
 
    ```bash
-   npm run start
+   npm run dev
    ```
 
-## Deplpyment Link
+## Deployment Link
 
 [https://assignment-5-vuejs.onrender.com/](https://assignment-5-vuejs.onrender.com/)
 

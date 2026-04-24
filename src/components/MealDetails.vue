@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getMeal, type MealData } from '../services/MealData'
+import HealthRank from './HealthRank.vue'
+import {
+  getMeal,
+  getMealHealthRank,
+  setMealHealthRank,
+  type MealData,
+} from '../services/MealData'
 
 const route = useRoute()
 const router = useRouter()
 
 const meal = ref<MealData | undefined>(undefined)
+const currentRank = ref(0)
 
   watch(
     () => route.params.id,
@@ -18,10 +25,24 @@ const meal = ref<MealData | undefined>(undefined)
       meal.value = getMeal(id)
       if (!meal.value) {
         router.replace('/')
+        return
       }
+      currentRank.value = getMealHealthRank(id) ?? 0
     },
     { immediate: true },
   )
+
+function handleHealthRank(rank: number) {
+  if (!meal.value) {
+    return
+  }
+  const updated = setMealHealthRank(meal.value._id, rank)
+  if (!updated) {
+    return
+  }
+  meal.value = updated
+  currentRank.value = updated.healthRank ?? 0
+}
 </script>
 
 <template>
@@ -42,6 +63,14 @@ const meal = ref<MealData | undefined>(undefined)
       :alt="meal.mealname"
       class="img-fluid rounded mb-3 meal-details-image"
     />
+    <div class="mb-3 d-flex align-items-center gap-2">
+      <p class="mb-0">Healthiness scale:</p>
+      <HealthRank
+        :rank="currentRank"
+        aria-prefix="Set health rank for this meal to"
+        @rate="handleHealthRank"
+      />
+    </div>
     <div v-if="meal.description?.length" class="mt-2 text-start mx-auto description-block">
       <h2 class="h5">Meal Description</h2>
       <ul>

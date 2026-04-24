@@ -1,13 +1,16 @@
+import { reactive } from 'vue'
+
 export interface MealData {
   _id: string
   mealname: string
   plateImageURL?: string
   description?: string[]
+  healthRank?: number
   createdAt: string
   updatedAt?: string
 }
 
-export const meals: MealData[] = [
+export const meals = reactive<MealData[]>([
     {
         "_id": "69bae43993dfeb9f77e0f6e6",
         "mealname": "Wed Mar 18 2026: breakfast",
@@ -16,6 +19,7 @@ export const meals: MealData[] = [
             "description text",
             "now I've done thise and that"
         ],
+        "healthRank": 3,
         "createdAt": "2026-03-18T17:43:21.338Z",
         "updatedAt": "2026-03-20T15:10:01.167Z"
     },
@@ -34,6 +38,7 @@ export const meals: MealData[] = [
         "mealname": "Fri Mar 20 2026: breakfast",
         "plateImageURL": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9B4ch0blVrmcRofyJSnYS9dqbZnHDCxrCxg&s",
         "description": ["bagel", "cream cheese", "coffee"],
+        "healthRank": 2,
         "createdAt": "2026-03-20T13:25:02.312Z",
         "updatedAt": "2026-03-20T13:25:02.312Z"
     },
@@ -49,7 +54,7 @@ export const meals: MealData[] = [
         "createdAt": "2026-04-07T13:45:39.866Z",
         "updatedAt": "2026-04-07T13:45:56.984Z"
     }
-]
+])
 
 export function getMeal(id: string): MealData | undefined {
   return meals.find((meal) => meal._id === id)
@@ -82,4 +87,23 @@ export function deleteMeal(id: string): boolean {
 
   meals.splice(mealIndex, 1)
   return true
+}
+
+export function getMealHealthRank(id: string): number | undefined {
+  return getMeal(id)?.healthRank
+}
+
+export function setMealHealthRank(id: string, rank: number): MealData | undefined {
+  if (!Number.isInteger(rank) || rank < 1 || rank > 5) {
+    return undefined
+  }
+
+  const meal = getMeal(id)
+  if (!meal) {
+    return undefined
+  }
+
+  meal.healthRank = rank
+  meal.updatedAt = new Date().toISOString()
+  return meal
 }

@@ -16,3 +16,11 @@ I realized that I wasn't using methods in my mealData.ts service so I asked AI t
 `Now add a method deleteMeal to handle deletion. Use confirm() so that the user is sure they want to delete that meal. After deletion redirect to the gallery page instead of the detials page.`
 
 With very little prompting I'm getting great results. Which is very exciting but I can't help but feel some dread for the future.
+
+After the first deployment to render I found an issue when I deleted a meal that the page only returned a not "not found" message. I explained the issue to the AI and it implemented some changes. It suggested using router.replace instead of .push. It also suggested building in a successful delete message that goes away after 5 seconds. 
+
+After the main functionality was implemented in render I wanted to have a little fun an build a healthiness ranking with donuts and gave the AI this prompt in planning mode.
+
+`I want to add the funtionality to give each meal a healthRank. Similar to a movie rating functionality, unstead of stars I want to use the donut image I'm using as a favicon. I want the user to be able to rank the meal on the gallery page and detail page. How could I do that?`
+
+After looking over the plan I let the AI implement the plan and it worked pretty well needed only a few tweaks. 

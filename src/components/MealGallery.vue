@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { meals } from '../services/MealData'
+import { meals, setMealHealthRank } from '../services/MealData'
 import { onBeforeUnmount, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import MealCard from './MealCard.vue'
@@ -47,10 +47,9 @@ onBeforeUnmount(() => {
   }
 })
 
-function handleRanking(mealId: string) {
-      console.log('Ranked meal ID', mealId);
-      
-  }   
+function handleRanking(mealId: string, rank: number) {
+  setMealHealthRank(mealId, rank)
+}
 </script>
 
 <template>
