@@ -11,4 +11,8 @@ I asked the AI to build out the form on the edit page and had to follow up with 
 
 `On the @src/components/MealEdit.vue add form functionality to update the mealName, Description, and image url using v-model for two way input binding. @sumit.prevent to keep the control in Vue and use watch to keep the form state in syn when the id changes`
 
-I realized that I wasn't using methods in my mealData.ts service so I asked AI to refactor the Details page. 
+I realized that I wasn't using methods in my mealData.ts service so I asked AI to refactor the Details page. After that I asked AI to create helper methods (updateMeal and deleteMeal) on the edit page.
+
+`Now add a method deleteMeal to handle deletion. Use confirm() so that the user is sure they want to delete that meal. After deletion redirect to the gallery page instead of the detials page.`
+
+With very little prompting I'm getting great results. Which is very exciting but I can't help but feel some dread for the future.
