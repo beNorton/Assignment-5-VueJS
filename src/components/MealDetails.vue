@@ -1,11 +1,23 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { meals } from '../services/MealData'
+import { meals, type MealData } from '../services/MealData'
 
 const route = useRoute()
 
-const meal = computed(() => meals.find((m) => m._id === route.params.id))
+const meal = ref<MealData | undefined>(undefined)
+
+watch(
+  () => route.params.id,
+  (id) => {
+    if (typeof id !== 'string') {
+      meal.value = undefined
+      return
+    }
+    meal.value = meals.find((m) => m._id === id)
+  },
+  { immediate: true },
+)
 </script>
 
 <template>
@@ -19,7 +31,7 @@ const meal = computed(() => meals.find((m) => m._id === route.params.id))
         Edit
       </RouterLink>
     </nav>
-    <h1 class="h2">{{ meal.mealname }}</h1>
+    <h1 class="h2">{{ meal.mealname || 'No meal name found'}}</h1>
     <img
       v-if="meal.plateImageURL"
       :src="meal.plateImageURL"
