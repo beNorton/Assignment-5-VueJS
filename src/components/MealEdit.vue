@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { meals } from '../services/MealData'
+import { deleteMeal, getMeal, updateMeal } from '../services/MealData'
 
 const route = useRoute()
 const router = useRouter()
@@ -22,7 +22,7 @@ watch(
       return
     }
 
-    const meal = meals.find((m) => m._id === id)
+    const meal = getMeal(id)
     mealName.value = meal?.mealname ?? ''
     description.value = meal?.description?.join('\n') ?? ''
     imageUrl.value = meal?.plateImageURL ?? ''
@@ -37,27 +37,53 @@ function handleSubmit() {
     return
   }
 
-  const meal = meals.find((m) => m._id === id)
+  const meal = getMeal(id)
   if (!meal) {
     saveMessage.value = 'Meal not found.'
     return
   }
 
-  meal.mealname = mealName.value.trim()
-  meal.plateImageURL = imageUrl.value.trim()
-  meal.description = description.value
-    .split('\n')
-    .map((line) => line.trim())
-    .filter(Boolean)
-  meal.updatedAt = new Date().toISOString()
+  const updatedMeal = updateMeal(id, {
+    mealname: mealName.value.trim(),
+    plateImageURL: imageUrl.value.trim(),
+    description: description.value
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean),
+  })
 
-  router.push(`/meals/${meal._id}`)
+  if (!updatedMeal) {
+    saveMessage.value = 'Meal not found.'
+    return
+  }
+
+  router.push(`/meals/${updatedMeal._id}`)
+}
+
+function handleDelete() {
+  const id = route.params.id
+  if (typeof id !== 'string') {
+    return
+  }
+
+  const shouldDeleteMeal = window.confirm('Are you sure you want to delete this meal?')
+  if (!shouldDeleteMeal) {
+    return
+  }
+
+  const deleted = deleteMeal(id)
+  if (!deleted) {
+    saveMessage.value = 'Meal not found.'
+    return
+  }
+
+  router.push('/')
 }
 </script>
 
 <template>
   <div>
-    <nav class="mb-3">
+    <nav class="mb-3 d-flex justify-content-start align-items-center">
       <RouterLink
         :to="`/meals/${route.params.id}`"
         class="text-decoration-none"
@@ -69,6 +95,12 @@ function handleSubmit() {
     <p class="text-body-secondary">
       Editing meal ID: <code>{{ route.params.id }}</code>
     </p>
+    <img
+      v-if="imageUrl"
+      :src="imageUrl"
+      :alt="mealName || 'Meal image preview'"
+      class="img-fluid rounded mb-3 meal-edit-image"
+    />
     <form @submit.prevent="handleSubmit" class="mt-3">
       <div class="mb-3">
         <label for="mealName" class="form-label">Meal name</label>
@@ -102,7 +134,20 @@ function handleSubmit() {
         />
       </div>
 
-      <button type="submit" class="btn btn-primary">Save Meal</button>
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Save Meal</button>
+        <button type="button" class="btn btn-danger" @click="handleDelete">
+          Delete Meal
+        </button>
+      </div>
     </form>
   </div>
 </template>
+
+<style scoped>
+.meal-edit-image {
+  max-height: 400px;
+  object-fit: cover;
+  width: 100%;
+}
+</style>

@@ -54,3 +54,32 @@ export const meals: MealData[] = [
 export function getMeal(id: string): MealData | undefined {
   return meals.find((meal) => meal._id === id)
 }
+
+export interface MealUpdateInput {
+  mealname: string
+  plateImageURL: string
+  description: string[]
+}
+
+export function updateMeal(id: string, updates: MealUpdateInput): MealData | undefined {
+  const meal = getMeal(id)
+  if (!meal) {
+    return undefined
+  }
+
+  meal.mealname = updates.mealname
+  meal.plateImageURL = updates.plateImageURL
+  meal.description = updates.description
+  meal.updatedAt = new Date().toISOString()
+  return meal
+}
+
+export function deleteMeal(id: string): boolean {
+  const mealIndex = meals.findIndex((meal) => meal._id === id)
+  if (mealIndex === -1) {
+    return false
+  }
+
+  meals.splice(mealIndex, 1)
+  return true
+}
