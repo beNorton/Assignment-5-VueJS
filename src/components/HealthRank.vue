@@ -16,6 +16,7 @@ const emit = defineEmits<{
   rate: [rank: number]
 }>()
 
+// Changes to the rank are handle at the parent level and not here.
 function onRate(rank: number) {
   emit('rate', rank)
 }

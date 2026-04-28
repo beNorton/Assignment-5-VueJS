@@ -2,6 +2,7 @@
 import type { MealData } from '../services/MealData.ts'
 import HealthRank from './HealthRank.vue'
 
+// Updates to the card are handled in the gallery not here.
 const emit = defineEmits<{ healthRank: [id: string, rank: number] }>()
 
 const props = defineProps<{

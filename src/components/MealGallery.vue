@@ -9,6 +9,7 @@ const router = useRouter()
 const showDeleteMessage = ref(false)
 let deleteMessageTimer: number | undefined
 
+// Remove the query flag after the message is dismissed.
 function clearDeletedQuery() {
   const query = { ...route.query }
   delete query.deleted
@@ -24,6 +25,7 @@ function dismissDeleteMessage() {
   clearDeletedQuery()
 }
 
+// Show  success message after redirecting back from a delete action.
 watch(
   () => route.query.deleted,
   (deleted) => {
@@ -47,6 +49,7 @@ onBeforeUnmount(() => {
   }
 })
 
+// Send health ranking updates to the meal data service.
 function handleRanking(mealId: string, rank: number) {
   setMealHealthRank(mealId, rank)
 }

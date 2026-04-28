@@ -15,23 +15,25 @@ const router = useRouter()
 const meal = ref<MealData | undefined>(undefined)
 const currentRank = ref(0)
 
-  watch(
-    () => route.params.id,
-    (id) => {
-      if (typeof id !== 'string') {
-        meal.value = undefined
-        return
-      }
-      meal.value = getMeal(id)
-      if (!meal.value) {
-        router.replace('/')
-        return
-      }
-      currentRank.value = getMealHealthRank(id) ?? 0
-    },
-    { immediate: true },
-  )
+// Keep the details view in sync when the user navigates between meal routes.
+watch(
+  () => route.params.id,
+  (id) => {
+    if (typeof id !== 'string') {
+      meal.value = undefined
+      return
+    }
+    meal.value = getMeal(id)
+    if (!meal.value) {
+      router.replace('/')
+      return
+    }
+    currentRank.value = getMealHealthRank(id) ?? 0
+  },
+  { immediate: true },
+)
 
+// Update the health rank for the UI.
 function handleHealthRank(rank: number) {
   if (!meal.value) {
     return

@@ -11,6 +11,7 @@ const description = ref('')
 const imageUrl = ref('')
 const saveMessage = ref('')
 
+// Update the form whenever the route changes so direct navigation works.
 watch(
   () => route.params.id,
   (id) => {
@@ -46,6 +47,7 @@ function handleSubmit() {
   const updatedMeal = updateMeal(id, {
     mealname: mealName.value.trim(),
     plateImageURL: imageUrl.value.trim(),
+    // Store the textarea as a clean list of description lines.
     description: description.value
       .split('\n')
       .map((line) => line.trim())
@@ -66,6 +68,7 @@ function handleDelete() {
     return
   }
 
+  // Confirm deletion.
   const shouldDeleteMeal = window.confirm('Are you sure you want to delete this meal?')
   if (!shouldDeleteMeal) {
     return
