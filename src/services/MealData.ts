@@ -56,6 +56,7 @@ export const meals = reactive<MealData[]>([
     }
 ])
 
+// Looks up a meal by its unique id.
 export function getMeal(id: string): MealData | undefined {
   return meals.find((meal) => meal._id === id)
 }
@@ -66,6 +67,7 @@ export interface MealUpdateInput {
   description: string[]
 }
 
+// Saves changes to an existing meal and refreshes its timestamp.
 export function updateMeal(id: string, updates: MealUpdateInput): MealData | undefined {
   const meal = getMeal(id)
   if (!meal) {
@@ -79,6 +81,7 @@ export function updateMeal(id: string, updates: MealUpdateInput): MealData | und
   return meal
 }
 
+// Removes a meal from the database.
 export function deleteMeal(id: string): boolean {
   const mealIndex = meals.findIndex((meal) => meal._id === id)
   if (mealIndex === -1) {
@@ -89,10 +92,12 @@ export function deleteMeal(id: string): boolean {
   return true
 }
 
+// Returns only the saved health rank for a meal when it exists.
 export function getMealHealthRank(id: string): number | undefined {
   return getMeal(id)?.healthRank
 }
 
+// Validates and saves a health rank between 1 and 5, then updates the timestamp.
 export function setMealHealthRank(id: string, rank: number): MealData | undefined {
   if (!Number.isInteger(rank) || rank < 1 || rank > 5) {
     return undefined
